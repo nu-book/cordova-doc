@@ -1,23 +1,4 @@
-<!---
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-
-# org.apache.cordova.device
+# Device
 
 This plugin defines a global `device` object, which describes the device's hardware and software.
 Although the object is in the global scope, it is not available until after the `deviceready` event.
@@ -26,10 +7,6 @@ Although the object is in the global scope, it is not available until after the 
     function onDeviceReady() {
         console.log(device.cordova);
     }
-
-## Installation
-
-    cordova plugin add org.apache.cordova.device
 
 ## Properties
 
@@ -43,33 +20,11 @@ Although the object is in the global scope, it is not available until after the 
 
 Get the version of Cordova running on the device.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Browser
-- Firefox OS
-- iOS
-- Tizen
-- Windows Phone 7 and 8
-- Windows 8
-
 ## device.model
 
 The `device.model` returns the name of the device's model or
 product. The value is set by the device manufacturer and may be
 different across versions of the same product.
-
-### Supported Platforms
-
-- Android
-- BlackBerry 10
-- Browser
-- iOS
-- Tizen
-- Windows Phone 7 and 8
-- Windows 8
 
 ### Quick Example
 
@@ -86,30 +41,11 @@ different across versions of the same product.
 
 - Gets the [product name](http://developer.android.com/reference/android/os/Build.html#PRODUCT) instead of the [model name](http://developer.android.com/reference/android/os/Build.html#MODEL), which is often the production code name. For example, the Nexus One returns `Passion`, and Motorola Droid returns `voles`.
 
-### Tizen Quirks
-
-- Returns the device model assigned by the vendor, for example, `TIZEN`
-
-### Windows Phone 7 and 8 Quirks
-
-- Returns the device model specified by the manufacturer. For example, the Samsung Focus returns `SGH-i917`.
-
 ## device.platform
 
 Get the device's operating system name.
 
     var string = device.platform;
-
-### Supported Platforms
-
-- Android
-- BlackBerry 10
-- Browser4
-- Firefox OS
-- iOS
-- Tizen
-- Windows Phone 7 and 8
-- Windows 8
 
 ### Quick Example
 
@@ -123,14 +59,6 @@ Get the device's operating system name.
     //   - "Tizen"
     var devicePlatform = device.platform;
 
-### Windows Phone 7 Quirks
-
-Windows Phone 7 devices report the platform as `WinCE`.
-
-### Windows Phone 8 Quirks
-
-Windows Phone 8 devices report the platform as `Win32NT`.
-
 ## device.uuid
 
 Get the device's Universally Unique Identifier ([UUID](http://en.wikipedia.org/wiki/Universally_Unique_Identifier)).
@@ -140,15 +68,6 @@ Get the device's Universally Unique Identifier ([UUID](http://en.wikipedia.org/w
 ### Description
 
 The details of how a UUID is generated are determined by the device manufacturer and are specific to the device's platform or model.
-
-### Supported Platforms
-
-- Android
-- BlackBerry 10
-- iOS
-- Tizen
-- Windows Phone 7 and 8
-- Windows 8
 
 ### Quick Example
 
@@ -176,29 +95,11 @@ re-install the app, and possibly also when you upgrade iOS, or even
 upgrade the app per version (apparent in iOS 5.1). The `uuid` is not
 a reliable value.
 
-### Windows Phone 7 and 8 Quirks
-
-The `uuid` for Windows Phone 7 requires the permission
-`ID_CAP_IDENTITY_DEVICE`.  Microsoft will likely deprecate this
-property soon.  If the capability is not available, the application
-generates a persistent guid that is maintained for the duration of the
-application's installation on the device.
-
 ## device.version
 
 Get the operating system version.
 
     var string = device.version;
-
-### Supported Platforms
-
-- Android 2.1+
-- BlackBerry 10
-- Browser
-- iOS
-- Tizen
-- Windows Phone 7 and 8
-- Windows 8
 
 ### Quick Example
 

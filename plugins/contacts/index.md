@@ -1,23 +1,4 @@
-<!---
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-
-# org.apache.cordova.contacts
+# Contacts
 
 This plugin defines a global `navigator.contacts` object, which provides access to the device contacts database.
 
@@ -45,35 +26,14 @@ clear and easy-to-understand user experience surrounding the use of
 contact data helps avoid user confusion and perceived misuse of
 contact data.  For more information, please see the Privacy Guide.
 
-## Installation
-
-    cordova plugin add org.apache.cordova.contacts
-
-### Firefox OS Quirks
-
-Create __www/manifest.webapp__ as described in
-[Manifest Docs](https://developer.mozilla.org/en-US/Apps/Developing/Manifest).
-Add relevant permisions.
-There is also a need to change the webapp type to "privileged"  - [Manifest Docs](https://developer.mozilla.org/en-US/Apps/Developing/Manifest#type).
-__WARNING__: All privileged apps enforce [Content Security Policy](https://developer.mozilla.org/en-US/Apps/CSP) which forbids inline script. Initialize your application in another way.
-
-	"type": "privileged",
-	"permissions": {
-		"contacts": {
-			"access": "readwrite",
-			"description": "Describe why there is a need for such permission"
-		}
-	}
 
 ### Windows Quirks
 
-Any contacts returned from `find` and `pickContact` methods are readonly, so your application cannot modify them.
-`find` method available only on Windows Phone 8.1 devices.
+On Windows, there is notion of 'local contacts' vs 'global contacts'. COTG can only manipulate its own contacts. Global contacts (created by other apps) are read-only. There is also notion of aggregate contact which is an aggregation of same contacts from many apps. Thus, he following behaviors are observed:
+-	`pick` and `find` functions are done with global contacts, this include contacts created by COTG and also by other apps. If there are same contacts (same name) from many apps, it will appear as only one result which is the aggregation.
+-	An attempt to modify a foreign or an aggregation contact will add this modified contact to local store (with different id). If this modified contact has the same name as the origin one, they will participate in the same aggregation. If there is already a contact in local store that belongs the same aggregation, it will be removed before adding a new.
+-	Deleting a contact will remove only the copy of COTG. Thus, it’s normal that for en entry in global store, after a successful deletion, a `find` will return the same contact again!
 
-### Windows 8 Quirks
-
-Windows 8 Contacts are readonly. Via the Cordova API Contacts are not queryable/searchable, you should inform the user to pick a contact as a call to contacts.pickContact which will open the 'People' app where the user must choose a contact.
-Any contacts returned are readonly, so your application cannot modify them.
 
 ## navigator.contacts
 
@@ -101,13 +61,6 @@ The `navigator.contacts.create` method is synchronous, and returns a new `Contac
 This method does not retain the Contact object in the device contacts
 database, for which you need to invoke the `Contact.save` method.
 
-### Supported Platforms
-
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Windows Phone 7 and 8
 
 ### Example
 
@@ -150,14 +103,6 @@ parameter to control which contact properties must be returned back.
 
     	- __desiredFields__: Contact fields to be returned back. If specified, the resulting `Contact` object only features values for these fields. _(DOMString[])_ [Optional]
 
-### Supported Platforms
-
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Windows Phone 7 and 8
-- Windows (Windows Phone 8.1 devices only)
 
 ### Example
 
@@ -177,9 +122,6 @@ parameter to control which contact properties must be returned back.
     var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
     navigator.contacts.find(fields, onSuccess, onError, options);
 
-### Windows Quirks
-
-- `__contactFields__` is not supported and will be ignored. `find` method will always attempt to match the name, email address, or phone number of a contact.
 
 ## navigator.contacts.pickContact
 
@@ -193,13 +135,6 @@ function specified by the __contactSuccess__ parameter.
 
 - __contactError__: Error callback function, invoked when an error occurs. [Optional]
 
-### Supported Platforms
-
-- Android
-- iOS
-- Windows Phone 8
-- Windows 8
-- Windows
 
 ### Example
 
@@ -259,16 +194,6 @@ for details.
 
 - __save__: Saves a new contact to the device contacts database, or updates an existing contact if a contact with the same __id__ already exists.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Windows Phone 7 and 8
-- Windows 8
-- Windows
 
 ### Save Example
 
@@ -320,19 +245,6 @@ for details.
 
 - __categories__:  Not supported on Android 2.X devices, returning `null`.
 
-### BlackBerry 10 Quirks
-
-- __id__: Assigned by the device when saving the contact.
-
-### FirefoxOS Quirks
-
-- __categories__: Partially supported. Fields __pref__ and __type__ are returning `null`
-
-- __ims__: Not supported
-
-- __photos__: Not supported
-
-
 ### iOS Quirks
 
 - __displayName__: Not supported on iOS, returning `null` unless there is no `ContactName` specified, in which case it returns the composite name, __nickname__ or `""`, respectively.
@@ -343,33 +255,7 @@ for details.
 
 - __categories__:  This property is currently not supported, returning `null`.
 
-### Windows Phone 7 and 8 Quirks
-
-- __displayName__: When creating a contact, the value provided for the display name parameter differs from the display name retrieved when finding the contact.
-
-- __urls__: When creating a contact, users can input and save more than one web address, but only one is available when searching the contact.
-
-- __phoneNumbers__: The _pref_ option is not supported. The _type_ is not supported in a _find_ operation. Only one `phoneNumber` is allowed for each _type_.
-
-- __emails__: The _pref_ option is not supported. Home and personal references same email entry. Only one entry is allowed for each _type_.
-
-- __addresses__: Supports only work, and home/personal _type_. The home and personal _type_ reference the same address entry. Only one entry is allowed for each _type_.
-
-- __organizations__: Only one is allowed, and does not support the _pref_, _type_, and _department_ attributes.
-
-- __note__: Not supported, returning `null`.
-
-- __ims__: Not supported, returning `null`.
-
-- __birthdays__: Not supported, returning `null`.
-
-- __categories__: Not supported, returning `null`.
-
 ### Windows Quirks
-
-- __photos__: Returns a File URL to the image, which is stored in the application's temporary directory.
-
-- __birthdays__: Not supported, returning `null`.
 
 - __categories__: Not supported, returning `null`.
 
@@ -399,16 +285,6 @@ a `ContactAddress[]` array.
 
 - __country__: The country name. _(DOMString)_
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Windows Phone 7 and 8
-- Windows 8
-- Windows
 
 ### Example
 
@@ -439,41 +315,11 @@ a `ContactAddress[]` array.
     var filter = ["displayName", "addresses"];
     navigator.contacts.find(filter, onSuccess, onError, options);
 
-### Android 2.X Quirks
-
-- __pref__: Not supported, returning `false` on Android 2.X devices.
-
-### BlackBerry 10 Quirks
-
-- __pref__: Not supported on BlackBerry devices, returning `false`.
-
-- __type__: Partially supported.  Only one each of _Work_ and _Home_ type addresses can be stored per contact.
-
-- __formatted__: Partially supported.  Returns a concatenation of all BlackBerry address fields.
-
-- __streetAddress__: Supported.  Returns a concatenation of BlackBerry __address1__ and __address2__ address fields.
-
-- __locality__: Supported.  Stored in BlackBerry __city__ address field.
-
-- __region__: Supported.  Stored in BlackBerry __stateProvince__ address field.
-
-- __postalCode__: Supported.  Stored in BlackBerry __zipPostal__ address field.
-
-- __country__: Supported.
-
-### FirefoxOS Quirks
-
-- __formatted__: Currently not supported
-
 ### iOS Quirks
 
 - __pref__: Not supported on iOS devices, returning `false`.
 
 - __formatted__: Currently not supported.
-
-### Windows 8 Quirks
-
-- __pref__: Not supported
 
 ### Windows Quirks
 
@@ -524,19 +370,6 @@ string.
 
 - __value__: The value of the field, such as a phone number or email address. _(DOMString)_
 
-- __pref__: Set to `true` if this `ContactField` contains the user's preferred value. _(boolean)_
-
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Windows Phone 7 and 8
-- Windows 8
-- Windows
-
 ### Example
 
         // create a new contact
@@ -551,31 +384,6 @@ string.
 
         // save the contact
         contact.save();
-
-### Android Quirks
-
-- __pref__: Not supported, returning `false`.
-
-### BlackBerry 10 Quirks
-
-- __type__: Partially supported.  Used for phone numbers.
-
-- __value__: Supported.
-
-- __pref__: Not supported, returning `false`.
-
-### iOS Quirks
-
-- __pref__: Not supported, returning `false`.
-
-### Windows8 Quirks
-
-- __pref__: Not supported, returning `false`.
-
-### Windows Quirks
-
-- __pref__: Not supported, returning `false`.
-
 
 ## ContactName
 
@@ -594,17 +402,6 @@ Contains different kinds of information about a `Contact` object's name.
 - __honorificPrefix__: The contact's prefix (example _Mr._ or _Dr._) _(DOMString)_
 
 - __honorificSuffix__: The contact's suffix (example _Esq._). _(DOMString)_
-
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Windows Phone 7 and 8
-- Windows 8
-- Windows
 
 ### Example
 
@@ -632,42 +429,9 @@ Contains different kinds of information about a `Contact` object's name.
 
 - __formatted__: Partially supported, and read-only.  Returns a concatenation of `honorificPrefix`, `givenName`, `middleName`, `familyName`, and `honorificSuffix`.
 
-### BlackBerry 10 Quirks
-
-- __formatted__: Partially supported.  Returns a concatenation of BlackBerry __firstName__ and __lastName__ fields.
-
-- __familyName__: Supported.  Stored in BlackBerry __lastName__ field.
-
-- __givenName__: Supported.  Stored in BlackBerry __firstName__ field.
-
-- __middleName__: Not supported, returning `null`.
-
-- __honorificPrefix__: Not supported, returning `null`.
-
-- __honorificSuffix__: Not supported, returning `null`.
-
-### FirefoxOS Quirks
-
-- __formatted__: Partially supported, and read-only.  Returns a concatenation of `honorificPrefix`, `givenName`, `middleName`, `familyName`, and `honorificSuffix`.
-
-
 ### iOS Quirks
 
 - __formatted__: Partially supported.  Returns iOS Composite Name, but is read-only.
-
-### Windows 8 Quirks
-
-- __formatted__: This is the only name property, and is identical to `displayName`, and `nickname`
-
-- __familyName__: not supported
-
-- __givenName__: not supported
-
-- __middleName__: not supported
-
-- __honorificPrefix__: not supported
-
-- __honorificSuffix__: not supported
 
 ### Windows Quirks
 
@@ -692,15 +456,6 @@ properties.  A `Contact` object stores one or more
 
 - __title__: The contact's title at the organization. _(DOMString)_
 
-
-### Supported Platforms
-
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Windows Phone 7 and 8
-- Windows (Windows 8.1 and Windows Phone 8.1 devices only)
 
 ### Example
 
@@ -728,28 +483,6 @@ properties.  A `Contact` object stores one or more
 ### Android 2.X Quirks
 
 - __pref__: Not supported by Android 2.X devices, returning `false`.
-
-### BlackBerry 10 Quirks
-
-- __pref__: Not supported by BlackBerry devices, returning `false`.
-
-- __type__: Not supported by BlackBerry devices, returning `null`.
-
-- __name__: Partially supported.  The first organization name is stored in the BlackBerry __company__ field.
-
-- __department__: Not supported, returning `null`.
-
-- __title__: Partially supported.  The first organization title is stored in the BlackBerry __jobTitle__ field.
-
-### Firefox OS Quirks
-
-- __pref__: Not supported
-
-- __type__: Not supported
-
-- __department__: Not supported
-
-- Fields __name__ and __title__ stored in __org__ and __jobTitle__.
 
 ### iOS Quirks
 

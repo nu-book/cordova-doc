@@ -1,23 +1,4 @@
-<!---
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-
-# org.apache.cordova.battery-status
+# Battery Status
 
 This plugin provides an implementation of an old version of the [Battery Status Events API](http://www.w3.org/TR/2011/WD-battery-status-20110915/).
 
@@ -26,10 +7,6 @@ It adds the following three `window` events:
 * batterystatus
 * batterycritical
 * batterylow
-
-## Installation
-
-    cordova plugin add org.apache.cordova.battery-status
 
 ## batterystatus
 
@@ -46,21 +23,10 @@ properties:
 Applications typically should use `window.addEventListener` to
 attach an event listener after the `deviceready` event fires.
 
-### Supported Platforms
+### Windows Quirks
 
-- Amazon Fire OS
-- iOS
-- Android
-- BlackBerry 10
-- Windows Phone 7 and 8
-- Tizen
-- Firefox OS
-
-### Windows Phone 7 and 8 Quirks
-
-Windows Phone 7 does not provide native APIs to determine battery
-level, so the `level` property is unavailable.  The `isPlugged`
-parameter _is_ supported.
+- If the device is not powered by battery, i.e. on desktop, the battery status will be reported with level always at 100% and isPlugged is always true.
+- The value isPlugged is loosely converted from battery status reported by Windows (which are charging, discharging, and idle). Thus, when battery is fully changed (level at 100%) the isPlugged value remains true whether the device is currently plugged or not. It will change to false when the battery switches to discharging state.
 
 ### Example
 
@@ -86,15 +52,6 @@ properties:
 Applications typically should use `window.addEventListener` to attach
 an event listener once the `deviceready` event fires.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- iOS
-- Android
-- BlackBerry 10
-- Tizen
-- Firefox OS
-
 ### Example
 
     window.addEventListener("batterycritical", onBatteryCritical, false);
@@ -118,15 +75,6 @@ properties:
 
 Applications typically should use `window.addEventListener` to
 attach an event listener once the `deviceready` event fires.
-
-### Supported Platforms
-
-- Amazon Fire OS
-- iOS
-- Android
-- BlackBerry 10
-- Tizen
-- Firefox OS
 
 ### Example
 

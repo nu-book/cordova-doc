@@ -1,26 +1,6 @@
-<!---
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+# Camera
 
-      http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-
-# org.apache.cordova.camera
-
-This plugin defines a global `navigator.camera` object, which provides an API for taking pictures and for choosing images from
-the system's image library.
+This plugin defines a global `navigator.camera` object, which provides an API for taking pictures and for choosing images from the system's image library.
 
 Although the object is attached to the global scoped `navigator`, it is not available until after the `deviceready` event.
 
@@ -28,10 +8,6 @@ Although the object is attached to the global scoped `navigator`, it is not avai
     function onDeviceReady() {
         console.log(navigator.camera);
     }
-
-## Installation
-
-    cordova plugin add org.apache.cordova.camera
 
 ## navigator.camera.getPicture
 
@@ -41,7 +17,7 @@ base64-encoded `String`, or as the URI for the image file.  The method
 itself returns a `CameraPopoverHandle` object that can be used to
 reposition the file selection popover.
 
-    navigator.camera.getPicture( cameraSuccess, cameraError, cameraOptions );
+    navigator.camera.getPicture(cameraSuccess, cameraError, cameraOptions);
 
 ### Description
 
@@ -75,50 +51,16 @@ example:
 
 - Post the data to a remote server
 
-__NOTE__: Photo resolution on newer devices is quite good. Photos
-selected from the device's gallery are not downscaled to a lower
-quality, even if a `quality` parameter is specified.  To avoid common
+__NOTE__: Photo resolution on newer devices is quite high, to avoid common
 memory problems, set `Camera.destinationType` to `FILE_URI` rather
 than `DATA_URL`.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Browser
-- Firefox OS
-- iOS
-- Tizen
-- Windows Phone 7 and 8
-- Windows 8
-
-### Preferences (iOS)
-
--  __CameraUsesGeolocation__ (boolean, defaults to false). For capturing JPEGs, set to true to get geolocation data in the EXIF header. This will trigger a request for geolocation permissions if set to true.
-
-        <preference name="CameraUsesGeolocation" value="false" />
-
-
-### Amazon Fire OS Quirks
-
-Amazon Fire OS uses intents to launch the camera activity on the device to capture
-images, and on phones with low memory, the Cordova activity may be killed.  In this
-scenario, the image may not appear when the cordova activity is restored.
 
 ### Android Quirks
 
 Android uses intents to launch the camera activity on the device to capture
-images, and on phones with low memory, the Cordova activity may be killed.  In this
-scenario, the image may not appear when the Cordova activity is restored.
-
-### Browser Quirks
-
-Can only return photos as base64-encoded image.
-
-### Firefox OS Quirks
-
-Camera plugin is currently implemented using [Web Activities](https://hacks.mozilla.org/2013/01/introducing-web-activities/). 
+images, and on phones with low memory, the COTG app may be killed.  In this
+scenario, the image will be lost.
 
 ### iOS Quirks
 
@@ -130,17 +72,6 @@ displays:
     setTimeout(function() {
         // do your thing here!
     }, 0);
-
-### Windows Phone 7 Quirks
-
-Invoking the native camera application while the device is connected
-via Zune does not work, and triggers an error callback.
-
-### Tizen Quirks
-
-Tizen only supports a `destinationType` of
-`Camera.DestinationType.FILE_URI` and a `sourceType` of
-`Camera.PictureSourceType.PHOTOLIBRARY`.
 
 ### Example
 
@@ -184,8 +115,7 @@ Optional parameters to customize the camera settings.
       encodingType: Camera.EncodingType.JPEG,
       targetWidth: 100,
       targetHeight: 100,
-      popoverOptions: CameraPopoverOptions,
-      saveToPhotoAlbum: false };
+      popoverOptions: CameraPopoverOptions};
 
 ### Options
 
@@ -207,7 +137,7 @@ Optional parameters to customize the camera settings.
             SAVEDPHOTOALBUM : 2
         };
 
-- __allowEdit__: Allow simple editing of image before selection. _(Boolean)_
+- __allowEdit__: Allow simple editing of image before selection. _(Boolean)_ Default is false. Ignored if __allowDeskew__ is true.
 
 - __encodingType__: Choose the  returned image file's encoding. Default is JPEG. Defined in `navigator.camera.EncodingType` _(Number)_
 
@@ -216,9 +146,9 @@ Optional parameters to customize the camera settings.
             PNG : 1                 // Return PNG encoded image
         };
 
-- __targetWidth__: Width in pixels to scale image. Must be used with __targetHeight__.  Aspect ratio remains constant. _(Number)_
+- __targetWidth__: Width in pixels to scale image. Must be used with __targetHeight__.  Aspect ratio remains constant. _(Number)_ Default is no limit.
 
-- __targetHeight__: Height in pixels to scale image. Must be used with __targetWidth__. Aspect ratio remains constant. _(Number)_
+- __targetHeight__: Height in pixels to scale image. Must be used with __targetWidth__. Aspect ratio remains constant. _(Number)_ Default is no limit.
 
 - __mediaType__: Set the type of media to select from.  Only works when `PictureSourceType` is `PHOTOLIBRARY` or `SAVEDPHOTOALBUM`. Defined in `nagivator.camera.MediaType` _(Number)_
 
@@ -230,89 +160,79 @@ Optional parameters to customize the camera settings.
 
 - __correctOrientation__: Rotate the image to correct for the orientation of the device during capture. _(Boolean)_
 
-- __saveToPhotoAlbum__: Save the image to the photo album on the device after capture. _(Boolean)_
-
 - __popoverOptions__: iOS-only options that specify popover location in iPad.  Defined in `CameraPopoverOptions`.
 
-- __cameraDirection__: Choose the camera to use (front- or back-facing). The default is BACK. Defined in `navigator.camera.Direction` _(Number)_
+- __allowDeskew__: Displays an UI assisting user to perform a perspective cropping and image processing after taking picture. This option will have effect only if mediaType is PICTURE. _(Boolean)_ Default is false.
 
-        Camera.Direction = {
-            BACK : 0,      // Use the back-facing camera
-            FRONT : 1      // Use the front-facing camera
+- __colorspace__: In the image processing step, user is presented by default with 3 modes that she can choose, Black White, Grayscale, and Color. In order to simplify the UI, this option can be specified so that only one mode is available, the value is an enum defined as following:
+
+        Camera.Colorspace = {
+            BW: 0,        // Result image will be in black & white
+            GRAYSCALE: 1, // Result image will be in 256 grayscale levels
+            COLOR : 2     // Result image will be in RGB
         };
 
-### Amazon Fire OS Quirks
+- __stampFormat__: Stamp the photo with given date format pattern. For _sourceType_ CAMERA only. The following pattern letters are defined.
 
-- Any `cameraDirection` value results in a back-facing photo.
+  | Pattern | Description                                       | Examples
+  |---------|---------------------------------------------------|---------------------------
+  | yy	    | Year, from 00 to 99.                              | 2009-06-15 13:45:30 -> 09
+  | yyyy    | Year as a four-digit number.                      | 2009-06-15 13:45:30 -> 1909
+  | M       | Month, from 1 through 12.                         | 2009-06-15 13:45:30 -> 6
+  | MM      | Month, from 01 through 12.                        | 2009-06-15 13:45:30 -> 06
+  | MMM     | Abbreviated name of the month.                    | 2009-06-15 13:45:30 -> Jun (en-US)
+  | MMMM    | Full name of the month.                           | 2009-06-15 13:45:30 -> June (en-US)
+  | d       | Day of the month, from 1 through 31.              | 2009-06-01 13:45:30 -> 1 <br/> 009-06-15 13:45:30 -> 15
+  | dd      | Day of the month, from 01 through 31.             | 2009-06-01 13:45:30 -> 01 <br/> 009-06-15 13:45:30 -> 15
+  | EEE     | Abbreviated name of the day of the week.          | 2009-06-15 13:45:30 -> Mon (en-US)
+  | EEEE    | Full name of the day of the week.                 | 2009-06-15 13:45:30 -> Monday (en-US)
+  | a       | AM/PM designator.                                 | 2009-06-15 13:45:30 -> PM (en-US)
+  | H       | Hour, using a 24-hour clock from 0 to 23.         | 2009-06-15 01:45:30 -> 1
+  | HH      | Hour, using a 24-hour clock from 00 to 23.        | 2009-06-15 01:45:30 -> 01
+  | h       | Hour, using a 12-hour clock from 1 to 12.         | 2009-06-15 13:45:30 -> 1
+  | hh      | Hour, using a 12-hour clock from 01 to 12.        | 2009-06-15 13:45:30 -> 01
+  | m       | Minute, from 0 through 59.                        | 2009-06-15 01:09:30 -> 9
+  | mm      | Minute, from 00 through 59.                       | 2009-06-15 01:09:30 -> 09
+  | s       | Second, from 0 through 59.                        | 2009-06-15 13:45:07 -> 7
+  | ss      | Second, from 00 through 59.                       | 2009-06-15 13:45:07 -> 07
+  | X       | Hours offset from UTC.                            | 2009-06-15 13:45:30-07:30 -> -07
+  | XX      | Hours and minutes offset from UTC.                | 2009-06-15 13:45:30-07:30 -> -0730
+  | XXX     | Hours and minutes offset from UTC with separator. | 2009-06-15 13:45:30-07:30 -> -07:30
+  | l       | Localized date (1).                               | 2009-06-15 13:45:30 -> 6/15/2009 (en-US)
+  | ll      | Localized date (1).                               | 2009-06-15 13:45:30 -> Jun 15, 2009 (en-US)
+  | lll     | Localized date (1).                               | 2009-06-15 13:45:30 -> June 15, 2009 (en-US)
+  | llll    | Localized date (1).                               | 2009-06-15 13:45:30 -> Monday, June 15, 2009 (en-US)
+  | L       | Localized date and time (2).                      | 2009-06-15 13:45:30 -> 6/15/2009 1:45 PM (en-US)
+  | LL      | Localized date and time (2).                      | 2009-06-15 13:45:30 -> Jun 15, 2009 1:45:30 PM (en-US)
+  | LLL     | Localized date and time (2).                      | 2009-06-15 13:45:30 -> June 15, 2009 1:45:30 PM EDT (en-US)
+  | LLLL    | Localized date and time (2).                      | 2009-06-15 13:45:30 -> Monday, June 15, 2009 1:45 PM Eastern Daylight Time (en-US)
+  
+  All other characters from 'A' to 'Z' and from 'a' to 'z' are reserved. Text can be quoted using single quotes (') to avoid interpretation. "''" represents a single quote.
+  
+  (1) This is the pattern returned by navigator.globalization.getDatePattern() with `selector: "date"` and `formatLength` is `short`, `medium`, `long` or `full` for l, ll, lll, or llll respectively.
 
-- Ignores the `allowEdit` parameter.
+  (2) This is the pattern returned by navigator.globalization.getDatePattern() with `selector: "date and time"` and `formatLength` is `short`, `medium`, `long` or `full` for L, LL, LLL, or LLLL respectively.
+  
+  Default is empty which means photos are not stamped.
 
-- `Camera.PictureSourceType.PHOTOLIBRARY` and `Camera.PictureSourceType.SAVEDPHOTOALBUM` both display the same photo album.
+
+- __stampAlign__: Specify the position of the stamp. The position is specified by combining horizontal alignment (left, center, right) with vertical alignment (top, middle, bottom) and joining them with vertical bar ('|'). For example, `top|right`, which is the same as `right|top`, specifies that stamping text will be aligned at top right corner. Default is `bottom|left`.
+
+- __stampFontSize__: One of `small`, `medium`, or `large` to specify the size of stamping text. Default is `medium`.
 
 ### Android Quirks
 
-- Any `cameraDirection` value results in a back-facing photo.
-
-- Ignores the `allowEdit` parameter.
-
+- Images are saved in a cache directory specific to each form, and will be removed when user removes the form from his library.
 - `Camera.PictureSourceType.PHOTOLIBRARY` and `Camera.PictureSourceType.SAVEDPHOTOALBUM` both display the same photo album.
-
-### BlackBerry 10 Quirks
-
-- Ignores the `quality` parameter.
-
-- Ignores the `allowEdit` parameter.
-
-- `Camera.MediaType` is not supported.
-
-- Ignores the `correctOrientation` parameter.
-
-- Ignores the `cameraDirection` parameter.
-
-### Firefox OS Quirks
-
-- Ignores the `quality` parameter.
-
-- `Camera.DestinationType` is ignored and equals `1` (image file URI)
-
-- Ignores the `allowEdit` parameter.
-
-- Ignores the `PictureSourceType` parameter (user chooses it in a dialog window)
-
-- Ignores the `encodingType`
-
-- Ignores the `targetWidth` and `targetHeight`
-
-- `Camera.MediaType` is not supported.
-
-- Ignores the `correctOrientation` parameter.
-
-- Ignores the `cameraDirection` parameter.
 
 ### iOS Quirks
 
-- Set `quality` below 50 to avoid memory errors on some devices.
+- Images are saved in a cache directory specific to each form, and will be removed when user removes the form from his library.
 
-- When using `destinationType.FILE_URI`, photos are saved in the application's temporary directory. The contents of the application's temporary directory is deleted when the application ends.
+### Windows Quirks
 
-### Tizen Quirks
-
-- options not supported
-
-- always returns a FILE URI
-
-### Windows Phone 7 and 8 Quirks
-
-- Ignores the `allowEdit` parameter.
-
-- Ignores the `correctOrientation` parameter.
-
-- Ignores the `cameraDirection` parameter.
-
-- Ignores the `saveToPhotoAlbum` parameter.  IMPORTANT: All images taken with the wp7/8 cordova camera API are always copied to the phone's camera roll.  Depending on the user's settings, this could also mean the image is auto-uploaded to their OneDrive.  This could potentially mean the image is available to a wider audience than your app intended.  If this a blocker for your application, you will need to implement the CameraCaptureTask as documented on msdn : [http://msdn.microsoft.com/en-us/library/windowsphone/develop/hh394006.aspx](http://msdn.microsoft.com/en-us/library/windowsphone/develop/hh394006.aspx)
-You may also comment or up-vote the related issue in the [issue tracker](https://issues.apache.org/jira/browse/CB-2083)
-
-- Ignores the `mediaType` property of `cameraOptions` as the Windows Phone SDK does not provide a way to choose videos from PHOTOLIBRARY.
+- Images are saved in a cache directory specific to each form, and will be removed when user removes the form from his library.
+- Prior to version COTG 3.0, cropping (option allowEdit) is not supported and ignored when running on devices in Mobile device family (telephones) or when picking image from library. From version 3.0, cropping is supported as expected.
 
 
 ## CameraError

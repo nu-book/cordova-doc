@@ -1,23 +1,4 @@
-<!---
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-
-# org.apache.cordova.dialogs
+# Dialogs
 
 This plugin provides access to some native dialog UI elements
 via a global `navigator.notification` object.
@@ -28,10 +9,6 @@ Although the object is attached to the global scoped `navigator`, it is not avai
     function onDeviceReady() {
         console.log(navigator.notification);
     }
-
-## Installation
-
-    cordova plugin add org.apache.cordova.dialogs
 
 ## Methods
 
@@ -70,32 +47,6 @@ function, which is typically less customizable.
         'Done'                  // buttonName
     );
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Tizen
-- Windows Phone 7 and 8
-- Windows 8
-- Windows
-
-### Windows Phone 7 and 8 Quirks
-
-- There is no built-in browser alert, but you can bind one as follows to call `alert()` in the global scope:
-
-        window.alert = navigator.notification.alert;
-
-- Both `alert` and `confirm` are non-blocking calls, results of which are only available asynchronously.
-
-### Firefox OS Quirks:
-
-Both native-blocking `window.alert()` and non-blocking `navigator.notification.alert()` are available.
-
-### BlackBerry 10 Quirks
-`navigator.notification.alert('text', callback, 'title', 'text')` callback parameter is passed the number 1.
 
 ## navigator.notification.confirm
 
@@ -134,35 +85,16 @@ indexing, so the value is `1`, `2`, `3`, etc.
         ['Restart','Exit']     // buttonLabels
     );
 
-### Supported Platforms
 
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Tizen
-- Windows Phone 7 and 8
-- Windows 8
-- Windows
-
-### Windows Phone 7 and 8 Quirks
+### Windows Quirks
 
 - There is no built-in browser function for `window.confirm`, but you can bind it by assigning:
 
         window.confirm = navigator.notification.confirm;
 
 - Calls to `alert` and `confirm` are non-blocking, so the result is only available asynchronously.
+- On Windows it's not possible to show dialog with more than two buttons.
 
-### Windows Quirks
-
-- On Windows8/8.1 it is not possible to add more than three buttons to MessageDialog instance.
-
-- On Windows Phone 8.1 it's not possible to show dialog with more than two buttons.
-
-### Firefox OS Quirks:
-
-Both native-blocking `window.confirm()` and non-blocking `navigator.notification.confirm()` are available.
 
 ## navigator.notification.prompt
 
@@ -206,29 +138,12 @@ contains the following properties:
         'Jane Doe'                 // defaultText
     );
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- Firefox OS
-- iOS
-- Windows Phone 7 and 8
-- Windows 8
-- Windows
-
 ### Android Quirks
 
 - Android supports a maximum of three buttons, and ignores any more than that.
 
 - On Android 3.0 and later, buttons are displayed in reverse order for devices that use the Holo theme.
 
-### Windows Quirks
-
-- On Windows prompt dialog is html-based due to lack of such native api.
-
-### Firefox OS Quirks:
-
-Both native-blocking `window.prompt()` and non-blocking `navigator.notification.prompt()` are available.
 
 ## navigator.notification.beep
 
@@ -243,31 +158,6 @@ The device plays a beep sound.
     // Beep twice!
     navigator.notification.beep(2);
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- iOS
-- Tizen
-- Windows Phone 7 and 8
-- Windows 8
-
-### Amazon Fire OS Quirks
-
-- Amazon Fire OS plays the default __Notification Sound__ specified under the __Settings/Display & Sound__ panel.
-
 ### Android Quirks
 
 - Android plays the default __Notification ringtone__ specified under the __Settings/Sound & Display__ panel.
-
-### Windows Phone 7 and 8 Quirks
-
-- Relies on a generic beep file from the Cordova distribution.
-
-### Tizen Quirks
-
-- Tizen implements beeps by playing an audio file via the media API.
-
-- The beep file must be short, must be located in a `sounds` subdirectory of the application's root directory, and must be named `beep.wav`.
-
