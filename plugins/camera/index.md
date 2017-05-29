@@ -209,9 +209,9 @@ Optional parameters to customize the camera settings.
   
   All other characters from 'A' to 'Z' and from 'a' to 'z' are reserved. Text can be quoted using single quotes (') to avoid interpretation. "''" represents a single quote.
   
-  (1) This is the pattern returned by navigator.globalization.getDatePattern() with `selector: "date"` and `formatLength` is `short`, `medium`, `long` or `full` for l, ll, lll, or llll respectively.
+  (1) This is the pattern returned by navigator.globalization.getDatePattern() with `selector: "date"` and `formatLength` is `short`, `medium`, `long` or `full` for l, ll, lll, or llll respectively. These patterns **must** be standalone, that is you cannot use them together with other pattern or any other character.
 
-  (2) This is the pattern returned by navigator.globalization.getDatePattern() with `selector: "date and time"` and `formatLength` is `short`, `medium`, `long` or `full` for L, LL, LLL, or LLLL respectively.
+  (2) This is the pattern returned by navigator.globalization.getDatePattern() with `selector: "date and time"` and `formatLength` is `short`, `medium`, `long` or `full` for L, LL, LLL, or LLLL respectively. These patterns **must** be standalone, that is you cannot use them together with other pattern or any other character.
   
   Default is empty which means photos are not stamped.
 
