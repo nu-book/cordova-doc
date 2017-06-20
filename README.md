@@ -4,9 +4,12 @@ Documentation for Cordova plugins used by COTG
 - [Cordova's base events](events/index.md)
 
 ## Plugins
+- [Barcode Scanner](plugins/barcode-scanner/index.md)
 - [Battery Status](plugins/battery-status/index.md)
 - [Camera](plugins/camera/index.md)
 - [Contacts](plugins/contacts/index.md)
+- [COTG Host](plugins/cotg-host/index.md)
+- [Date Picker](plugins/date-picker/index.md)
 - [Device](plugins/device/index.md)
 - [Device Motion](plugins/device-motion/index.md)
 - [Device Orientation](plugins/device-orientation/index.md)
@@ -15,6 +18,7 @@ Documentation for Cordova plugins used by COTG
 - [File Transfer](plugins/file-transfer/index.md)
 - [Geolocation](plugins/geolocation/index.md)
 - [Globalization](plugins/globalization/index.md)
+- [Graphical Annotation](plugins/graphic-annotation/index.md)
 - [Media](plugins/media/index.md)
 - [Media Capture](plugins/media-capture/index.md)
 - [Network Information](plugins/network-information/index.md)

@@ -1,23 +1,4 @@
-<!---
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-
-# org.apache.cordova.globalization
+# Globalization
 
 This plugin obtains information and performs operations specific to the user's
 locale, language, and timezone. Note the difference between locale and language:
@@ -38,9 +19,6 @@ Although in the global scope, it is not available until after the `deviceready` 
         console.log(navigator.globalization);
     }
 
-## Installation
-
-    cordova plugin add org.apache.cordova.globalization
 
 ## Objects
 
@@ -77,16 +55,6 @@ If there is an error getting the language, then the `errorCallback`
 executes with a `GlobalizationError` object as a parameter. The
 error's expected code is `GlobalizationError.UNKNOWN_ERROR`.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Windows Phone 8
-- Windows
-
 ### Example
 
 When the browser is set to the `en-US` language, this should display a
@@ -99,22 +67,13 @@ popup dialog with the text `language: en-US`:
 
 ### Android Quirks
 
-- Returns the ISO 639-1 two-letter language code, upper case ISO 3166-1 
-country code and variant separated by hyphens. Examples: "en", "en-US", "US"
-
-### Windows Phone 8 Quirks
-
-- Returns the ISO 639-1 two-letter language code and ISO 3166-1 country code
-of the regional variant corresponding to the "Language" setting, separated by
-a hyphen.
-- Note that the regional variant is a property of the "Language" setting and
-not determined by the unrelated "Country/Region" setting on Windows Phone.
+- Returns the ISO 639-1 two-letter language code, upper case ISO 3166-1 country code and variant separated by hyphens. Examples: "en", "en-US", "US"
 
 ### Windows Quirks
 
-- Returns the ISO 639-1 two-letter language code and ISO 3166-1 country code
-of the regional variant corresponding to the "Language" setting, separated by
-a hyphen.
+- Returns the ISO 639-1 two-letter language code and ISO 3166-1 country code of the regional variant corresponding to the "Language" setting, separated by a hyphen.
+- The result is not necessarily the first entry in user language preferences. It is actually the highest entry in this list among the languages supported (translated) by COTG.
+
 
 ## navigator.globalization.getLocaleName
 
@@ -134,16 +93,6 @@ If there is an error getting the locale, then the `errorCallback`
 executes with a `GlobalizationError` object as a parameter. The
 error's expected code is `GlobalizationError.UNKNOWN_ERROR`.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Windows Phone 8
-- Windows
-
 ### Example
 
 When the browser is set to the `en-US` locale, this displays a popup
@@ -156,20 +105,11 @@ dialog with the text `locale: en-US`.
 
 ### Android Quirks
 
-- Java does not distinguish between a set "langauge" and set "locale," so this
-method is essentially the same as `navigator.globalizatin.getPreferredLanguage()`.
-
-### Windows Phone 8 Quirks
-
-- Returns the ISO 639-1 two-letter language code and ISO 3166-1 country code
-of the regional variant corresponding to the "Regional Format" setting, separated
-by a hyphen.
+- Java does not distinguish between a set "langauge" and set "locale," so this method is essentially the same as `navigator.globalizatin.getPreferredLanguage()`.
 
 ### Windows Quirks
 
-- Locale setting can be changed in Control Panel -> Clock, Language and Region 
--> Region -> Formats -> Format, 
-and in Settings -> Region -> Regional Format on Windows Phone 8.1.
+- Returns the ISO 639-1 two-letter language code and ISO 3166-1 country code of the regional variant corresponding to the "Regional Format" setting, separated by a hyphen.
 
 
 ## navigator.globalization.dateToString
@@ -197,16 +137,6 @@ The `options.formatLength` can be `short`, `medium`, `long`, or `full`.
 
 The `options.selector` can be `date`, `time` or `date and time`.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Windows Phone 8
-- Windows
-
 ### Example
 
 If the browser is set to the `en_US` locale, this displays a popup
@@ -219,35 +149,6 @@ options:
         function () { alert('Error getting dateString\n'); },
         { formatLength: 'short', selector: 'date and time' }
     );
-### Android Quirks
-- `formatLength` options are a subset of Unicode 
-  [UTS #35](http://unicode.org/reports/tr35/tr35-4.html). The default option 
-  `short` depends on a user selected date format within 
-  `Settings -> System -> Date & time -> Choose date format`,
-  which provide a `year` pattern only with 4 digits, not 2 digits.
-  This means that it is not completely aligned with 
-  [ICU](http://demo.icu-project.org/icu-bin/locexp?d_=en_US&_=en_US).
-
-### Windows Phone 8 Quirks
-
-- The `formatLength` option supports only `short` and `full` values.
-
-- The pattern for 'date and time' selector is always a full datetime format.
-
-- The returned value may be not completely aligned with ICU depending on a user locale.
-
-### Windows Quirks
-
-- The `formatLength` option supports only `short` and `full` values.
-
-- The pattern for 'date and time' selector is always a full datetime format.
-
-- The returned value may be not completely aligned with ICU depending on a user locale.
-
-### Firefox OS Quirks
-
-- `formatLength` is not distinguishing `long` and `full` 
-- only one method of displaying date (no `long` or `full` version)
 
 ## navigator.globalization.getCurrencyPattern
 
@@ -280,14 +181,6 @@ If there is an error obtaining the pattern, then the `errorCallback`
 executes with a `GlobalizationError` object as a parameter. The
 error's expected code is `GlobalizationError.FORMATTING_ERROR`.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- iOS
-- Windows
-
 ### Example
 
 When the browser is set to the `en_US` locale and the selected
@@ -315,10 +208,6 @@ Expected result:
     rounding: 0
     decimal: .
     grouping: ,
-
-### Windows Quirks
-
-- Only 'code' and 'fraction' properties are supported
 
 
 ## navigator.globalization.getDateNames
@@ -348,16 +237,6 @@ The value of `options.type` can be `narrow` or `wide`.
 
 The value of `options.item` can be `months` or `days`.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Windows Phone 8
-- Windows
-
 ### Example
 
 When the browser is set to the `en_US` locale, this example displays
@@ -373,20 +252,6 @@ a series of twelve popup dialogs, one per month, with text similar to
         function () { alert('Error getting names\n'); },
         { type: 'wide', item: 'months' }
     );
-
-### Firefox OS Quirks
-
-- `options.type` supports a `genitive` value, important for some languages
-
-### Windows Phone 8 Quirks
-
-- The array of months contains 13 elements.
-- The returned array may be not completely aligned with ICU depending on a user locale.
-
-### Windows Quirks
-
-- The array of months contains 12 elements.
-- The returned array may be not completely aligned with ICU depending on a user locale.
 
 ## navigator.globalization.getDatePattern
 
@@ -420,15 +285,6 @@ The `options.formatLength` can be `short`, `medium`, `long`, or
 `full`.  The `options.selector` can be `date`, `time` or `date and
 time`.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- iOS
-- Windows Phone 8
-- Windows
-
 ### Example
 
 When the browser is set to the `en_US` locale, this example displays
@@ -442,29 +298,12 @@ a popup dialog with text such as `pattern: M/d/yyyy h:mm a`:
         );
     }
 
-### Windows Phone 8 Quirks
-
-- The `formatLength` supports only `short` and `full` values.
-
-- The `pattern` for `date and time` pattern returns only full datetime format.
-
-- The `timezone` returns the full time zone name.
-
-- The `dst_offset` property is not supported, and always returns zero.
-
-- The pattern may be not completely aligned with ICU depending on a user locale.
-
 ### Windows Quirks
 
-- The `formatLength` supports only `short` and `full` values.
-
-- The `pattern` for `date and time` pattern returns only full datetime format.
-
 - The `timezone` returns the full time zone name.
 
-- The `dst_offset` property is not supported, and always returns zero.
-
 - The pattern may be not completely aligned with ICU depending on a user locale.
+
 
 ## navigator.globalization.getFirstDayOfWeek
 
@@ -484,16 +323,6 @@ If there is an error obtaining the pattern, then the `errorCallback`
 executes with a `GlobalizationError` object as a parameter. The
 error's expected code is `GlobalizationError.UNKNOWN_ERROR`.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Windows Phone 8
-- Windows
-
 ### Example
 
 When the browser is set to the `en_US` locale, this displays a
@@ -503,11 +332,6 @@ popup dialog with text similar to `day: 1`.
         function (day) {alert('day: ' + day.value + '\n');},
         function () {alert('Error getting day\n');}
     );
-
-###	Windows Quirks
-
-- On Windows 8.0/8.1 the value depends on user' calendar preferences. On Windows Phone 8.1 
-the value depends on current locale.
 
 ## navigator.globalization.getNumberPattern
 
@@ -546,15 +370,6 @@ The `options` parameter is optional, and default values are:
 
 The `options.type` can be `decimal`, `percent`, or `currency`.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- iOS
-- Windows Phone 8
-- Windows
-
 ### Example
 
 When the browser is set to the `en_US` locale, this should display a
@@ -585,17 +400,6 @@ Results:
     grouping: ,
 
 
-### Windows Phone 8 Quirks
-
-- The `pattern` property is not supported, and returns an empty string.
-
-- The `fraction` property is not supported, and returns zero.
-
-### Windows Quirks
-
-- The `pattern` property is not supported, and returns an empty string.
-
-
 ## navigator.globalization.isDayLightSavingsTime
 
 Indicates whether daylight savings time is in effect for a given date
@@ -615,16 +419,6 @@ The inbound parameter `date` should be of type `Date`.
 
 If there is an error reading the date, then the `errorCallback`
 executes. The error's expected code is `GlobalizationError.UNKNOWN_ERROR`.
-
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Windows Phone 8
-- Windows
 
 ### Example
 
@@ -662,15 +456,6 @@ The `options` parameter is optional, and its default values are:
 
 The `options.type` can be 'decimal', 'percent', or 'currency'.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- iOS
-- Windows Phone 8
-- Windows
-
 ### Example
 
 When the browser is set to the `en_US` locale, this displays a popup
@@ -682,14 +467,6 @@ dialog with text similar to `number: 3.142`:
         function () {alert('Error getting number\n');},
         {type:'decimal'}
     );
-
-### Windows Quirks
-
-- Windows 8.0 does not support number rounding, therefore values will not be rounded automatically.
-
-- On Windows 8.1 and Windows Phone 8.1 fractional part is being truncated instead of rounded in case of `percent` number type therefore fractional digits count is set to 0.
-
-- `percent` numbers are not grouped as they can't be parsed in stringToNumber if grouped.
 
 ## navigator.globalization.stringToDate
 
@@ -733,16 +510,6 @@ If there is an error parsing the date string, then the `errorCallback`
 executes with a `GlobalizationError` object as a parameter. The
 error's expected code is `GlobalizationError.PARSING_ERROR`.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Windows Phone 8
-- Windows
-
 ### Example
 
 When the browser is set to the `en_US` locale, this displays a
@@ -759,23 +526,9 @@ integer represents an array index.
         {selector: 'date'}
     );
 
-### Windows Phone 8 Quirks
-
-- The `formatLength` option supports only `short` and `full` values.
-
-- The pattern for 'date and time' selector is always a full datetime format.
-
-- The inbound `dateString` parameter should be formed in compliance with a pattern returned by getDatePattern.
-This pattern may be not completely aligned with ICU depending on a user locale.
-
 ### Windows Quirks
 
-- The `formatLength` option supports only `short` and `full` values.
-
-- The pattern for 'date and time' selector is always a full datetime format.
-
-- The inbound `dateString` parameter should be formed in compliance with a pattern returned by getDatePattern.
-This pattern may be not completely aligned with ICU depending on a user locale.
+- The inbound `dateString` parameter should be formed in compliance with a pattern returned by getDatePattern. This pattern may be not completely aligned with ICU depending on a user locale.
 
 ## navigator.globalization.stringToNumber
 
@@ -802,15 +555,6 @@ values:
 
 The `options.type` can be `decimal`, `percent`, or `currency`.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- iOS
-- Windows Phone 8
-- Windows
-
 ### Example
 
 When the browser is set to the `en_US` locale, this should display a
@@ -823,16 +567,9 @@ popup dialog with text similar to `number: 1234.56`:
         {type:'decimal'}
     );
 
-### Windows Phone 8 Quirks	
+### Windows
 
 - In case of `percent` type the returned value is not divided by 100.
-
-### Windows Quirks	
-	
-- The string must strictly conform to the locale format. For example, percent symbol should be 
-separated by space for 'en-US' locale if the type parameter is 'percent'.
-
-- `percent` numbers must not be grouped to be parsed correctly.
 
 ## GlobalizationError
 
@@ -851,16 +588,6 @@ An object representing a error from the Globalization API.
 
 This object is created and populated by Cordova, and returned to a callback in the case of an error.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Windows Phone 8
-- Windows
-
 ### Example
 
 When the following error callback executes, it displays a
@@ -870,5 +597,3 @@ popup dialog with the text similar to `code: 3` and `message:`
         alert('code: ' + error.code + '\n' +
               'message: ' + error.message + '\n');
     };
-
-

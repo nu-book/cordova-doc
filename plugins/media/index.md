@@ -1,30 +1,10 @@
-<!---
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-
-# org.apache.cordova.media
+# Media
 
 This plugin provides the ability to record and play back audio files on a device.
 
-__NOTE__: The current implementation does not adhere to a W3C
-specification for media capture, and is provided for convenience only.
-A future implementation will adhere to the latest W3C specification
-and may deprecate the current APIs.
+__NOTE__:
+* The current implementation does not adhere to a W3C specification for media capture, and is provided for convenience only.
+* COTG provides its own media file playback which is much simpler: in your Javascript, just do `window.localtion.href = <url of media file>;` to play media urls. This interface provides no control to Javascript but works seamlessly on every platform we support. We recommend to use it instead of this plugin. This plugin is provided in case you want to control playback, play/pause/stop in the background directly from JavaScript.
 
 This plugin defines a global `Media` Constructor.
 
@@ -35,26 +15,6 @@ Although in the global scope, it is not available until after the `deviceready` 
         console.log(Media);
     }
 
-## Installation
-
-    cordova plugin add org.apache.cordova.media
-
-## Supported Platforms
-
-- Android
-- BlackBerry 10
-- iOS
-- Windows Phone 7 and 8
-- Tizen
-- Windows
-
-## Windows Phone Quirks
-
-- Only one media file can be played back at a time.
-
-- There are strict restrictions on how your application interacts with other media. See the [Microsoft documentation for details][url].
-
-[url]: http://msdn.microsoft.com/en-us/library/windowsphone/develop/hh184838(v=vs.92).aspx
 
 ## Media
 
@@ -96,10 +56,6 @@ The following constants are reported as the only parameter to the
 - `media.seekTo`: Moves the position within the audio file.
 
 - `media.setVolume`: Set the volume for audio playback.
-
-- `media.startRecord`: Start recording an audio file.
-
-- `media.stopRecord`: Stop recording an audio file.
 
 - `media.stop`: Stop playing an audio file.
 
@@ -300,9 +256,6 @@ Sets the current position within an audio file.
     }, 5000);
 
 
-### BlackBerry 10 Quirks
-
-- Not supported on BlackBerry OS 5 devices.
 
 ## media.setVolume
 
@@ -313,11 +266,6 @@ Set the volume for an audio file.
 ### Parameters
 
 - __volume__: The volume to set for playback.  The value must be within the range of 0.0 to 1.0.
-
-### Supported Platforms
-
-- Android
-- iOS
 
 ### Quick Example
 
@@ -349,66 +297,6 @@ Set the volume for an audio file.
         }, 5000);
     }
 
-
-## media.startRecord
-
-Starts recording an audio file.
-
-    media.startRecord();
-
-### Supported Platforms
-
-- Android
-- iOS
-- Windows Phone 7 and 8
-- Windows
-
-### Quick Example
-
-    // Record audio
-    //
-    function recordAudio() {
-        var src = "myrecording.mp3";
-        var mediaRec = new Media(src,
-            // success callback
-            function() {
-                console.log("recordAudio():Audio Success");
-            },
-
-            // error callback
-            function(err) {
-                console.log("recordAudio():Audio Error: "+ err.code);
-            });
-
-        // Record audio
-        mediaRec.startRecord();
-    }
-
-
-### Android Quirks
-
-- Android devices record audio in Adaptive Multi-Rate format. The specified file should end with a _.amr_ extension.
-- The hardware volume controls are wired up to the media volume while any Media objects are alive. Once the last created Media object has `release()` called on it, the volume controls revert to their default behaviour. The controls are also reset on page navigation, as this releases all Media objects.
-
-### iOS Quirks
-
-- iOS only records to files of type _.wav_ and returns an error if the file name extension is not correct.
-
-- If a full path is not provided, the recording is placed in the application's `documents/tmp` directory. This can be accessed via the `File` API using `LocalFileSystem.TEMPORARY`. Any subdirectory specified at record time must already exist.
-
-- Files can be recorded and played back using the documents URI:
-
-        var myMedia = new Media("documents://beer.mp3")
-
-### Windows Quirks
-
-- If a full path is not provided, the recording is placed in the AppData/temp directory. This can be accessed via the `File` API using `LocalFileSystem.TEMPORARY` or 'ms-appdata:///temp/<filename>' URI.
-
-- Any subdirectory specified at record time must already exist.
-
-### Tizen Quirks
-
-- Not supported on Tizen devices.
 
 ## media.stop
 
@@ -443,51 +331,6 @@ Stops playing an audio file.
     }
 
 
-## media.stopRecord
-
-Stops recording an audio file.
-
-    media.stopRecord();
-
-### Supported Platforms
-
-- Android
-- iOS
-- Windows Phone 7 and 8
-- Windows
-
-### Quick Example
-
-    // Record audio
-    //
-    function recordAudio() {
-        var src = "myrecording.mp3";
-        var mediaRec = new Media(src,
-            // success callback
-            function() {
-                console.log("recordAudio():Audio Success");
-            },
-
-            // error callback
-            function(err) {
-                console.log("recordAudio():Audio Error: "+ err.code);
-            }
-        );
-
-        // Record audio
-        mediaRec.startRecord();
-
-        // Stop recording after 10 seconds
-        setTimeout(function() {
-            mediaRec.stopRecord();
-        }, 10000);
-    }
-
-
-### Tizen Quirks
-
-- Not supported on Tizen devices.
-
 ## MediaError
 
 A `MediaError` object is returned to the `mediaError` callback
@@ -505,4 +348,3 @@ function when an error occurs.
 - `MediaError.MEDIA_ERR_NETWORK`        = 2
 - `MediaError.MEDIA_ERR_DECODE`         = 3
 - `MediaError.MEDIA_ERR_NONE_SUPPORTED` = 4
-

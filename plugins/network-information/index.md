@@ -1,44 +1,8 @@
-<!---
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+# Network Information
 
-      http://www.apache.org/licenses/LICENSE-2.0
+This plugin provides an implementation of an old version of the [Network Information API](http://www.w3.org/TR/2011/WD-netinfo-api-20110607/).
+It provides information about the device's cellular and wifi connection, and whether the device has an internet connection.
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-
-# org.apache.cordova.network-information
-
-This plugin provides an implementation of an old version of the
-[Network Information API](http://www.w3.org/TR/2011/WD-netinfo-api-20110607/).
-It provides information about the device's cellular and
-wifi connection, and whether the device has an internet connection.
-
-## Installation
-
-    cordova plugin add org.apache.cordova.network-information
-
-## Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Browser
-- iOS
-- Windows Phone 7 and 8
-- Tizen
-- Windows
-- Firefox OS
 
 # Connection
 
@@ -85,39 +49,11 @@ connection state, and type of connection.
     checkConnection();
 
 
-### API Change
-
-Until Cordova 2.3.0, the `Connection` object was accessed via
-`navigator.network.connection`, after which it was changed to
-`navigator.connection` to match the W3C specification.  It's still
-available at its original location, but is deprecated and will
-eventually be removed.
-
 ### iOS Quirks
 
 - iOS can't detect the type of cellular network connection.
     - `navigator.connection.type` is set to `Connection.CELL` for all cellular data.
 
-### Windows Phone Quirks
-
-- When running in the emulator, always detects `navigator.connection.type` as `Connection.UNKNOWN`.
-
-- Windows Phone can't detect the type of cellular network connection.
-    - `navigator.connection.type` is set to `Connection.CELL` for all cellular data.
-
-### Windows Quirks
-
-- When running in the Phone 8.1 emulator, always detects `navigator.connection.type` as `Connection.ETHERNET`.
-
-### Tizen Quirks
-
-- Tizen can only detect a WiFi or cellular connection.
-    - `navigator.connection.type` is set to `Connection.CELL_2G` for all cellular data.
-
-### Firefox OS Quirks
-
-- Firefox OS can't detect the type of cellular network connection.
-    - `navigator.connection.type` is set to `Connection.CELL` for all cellular data.
 
 # Network-related Events
 
@@ -151,13 +87,6 @@ attach an event listener once the `deviceready` event fires.
 
 During initial startup, the first offline event (if applicable) takes at least a second to fire.
 
-### Windows Phone 7 Quirks
-
-When running in the Emulator, the `connection.status` is always unknown, so this event does _not_ fire.
-
-### Windows Phone 8 Quirks
-
-The Emulator reports the connection type as `Cellular`, which does not change, so the event does _not_ fire.
 
 ## online
 
@@ -191,11 +120,3 @@ attach an event listener once the `deviceready` event fires.
 During initial startup, the first `online` event (if applicable) takes
 at least a second to fire, prior to which `connection.type` is
 `UNKNOWN`.
-
-### Windows Phone 7 Quirks
-
-When running in the Emulator, the `connection.status` is always unknown, so this event does _not_ fire.
-
-### Windows Phone 8 Quirks
-
-The Emulator reports the connection type as `Cellular`, which does not change, so events does _not_ fire.

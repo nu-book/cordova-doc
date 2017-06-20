@@ -1,23 +1,4 @@
-<!---
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-
-# org.apache.cordova.geolocation
+# Geolocation
 
 This plugin provides information about the device's location, such as
 latitude and longitude. Common sources of location information include
@@ -30,21 +11,6 @@ This API is based on the
 [W3C Geolocation API Specification](http://dev.w3.org/geo/api/spec-source.html),
 and only executes on devices that don't already provide an implementation.
 
-__WARNING__: Collection and use of geolocation data
-raises important privacy issues.  Your app's privacy policy should
-discuss how the app uses geolocation data, whether it is shared with
-any other parties, and the level of precision of the data (for
-example, coarse, fine, ZIP code level, etc.).  Geolocation data is
-generally considered sensitive because it can reveal user's
-whereabouts and, if stored, the history of their travels.
-Therefore, in addition to the app's privacy policy, you should
-strongly consider providing a just-in-time notice before the app
-accesses geolocation data (if the device operating system doesn't do
-so already).  That notice should provide the same information noted
-above, as well as obtaining the user's permission (e.g., by presenting
-choices for __OK__ and __No Thanks__).  For more information, please
-see the Privacy Guide.
-
 This plugin defines a global `navigator.geolocation` object (for platforms
 where it is otherwise missing).
 
@@ -55,21 +21,6 @@ are not available until after the `deviceready` event.
     function onDeviceReady() {
         console.log("navigator.geolocation works well");
     }
-
-## Installation
-
-    cordova plugin add org.apache.cordova.geolocation
-
-## Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Firefox OS
-- iOS
-- Tizen
-- Windows Phone 7 and 8
-- Windows 8
 
 ## Methods
 
@@ -195,7 +146,7 @@ Optional parameters to customize the retrieval of the geolocation
 
 ### Android Quirks
 
-Android 2.x emulators do not return a geolocation result unless the `enableHighAccuracy` option is set to `true`.
+On some Android devices, `enableHighAccuracy` option must be set to `true` for it to work. In certain cases, providing `maximumAge` option will cause timeout errors.
 
 ## navigator.geolocation.clearWatch
 
@@ -250,10 +201,6 @@ It contains a set of properties that describe the geographic coordinates of a po
 * __heading__: Direction of travel, specified in degrees counting clockwise relative to the true north. _(Number)_
 
 * __speed__: Current ground speed of the device, specified in meters per second. _(Number)_
-
-###  Amazon Fire OS Quirks
-
-__altitudeAccuracy__: Not supported by Android devices, returning `null`.
 
 ### Android Quirks
 

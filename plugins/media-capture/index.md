@@ -1,40 +1,6 @@
-<!---
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-
-# org.apache.cordova.media-capture
+# Media Capture
 
 This plugin provides access to the device's audio, image, and video capture capabilities.
-
-__WARNING__: Collection and use of images, video, or
-audio from the device's camera or microphone raises important privacy
-issues.  Your app's privacy policy should discuss how the app uses
-such sensors and whether the data recorded is shared with any other
-parties.  In addition, if the app's use of the camera or microphone is
-not apparent in the user interface, you should provide a just-in-time
-notice before the app accesses the camera or microphone (if the
-device operating system doesn't do so already). That notice should
-provide the same information noted above, as well as obtaining the
-user's permission (e.g., by presenting choices for __OK__ and __No
-Thanks__).  Note that some app marketplaces may require your app to
-provide just-in-time notice and obtain permission from the user prior
-to accessing the camera or microphone.  For more information, please
-see the Privacy Guide.
 
 This plugin defines global `navigator.device.capture` object.
 
@@ -44,19 +10,6 @@ Although in the global scope, it is not available until after the `deviceready` 
     function onDeviceReady() {
         console.log(navigator.device.capture);
     }
-
-## Installation
-
-    cordova plugin add org.apache.cordova.media-capture
-
-## Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- iOS
-- Windows Phone 7 and 8
-- Windows 8
 
 ## Objects
 
@@ -112,15 +65,6 @@ is captured, the `CaptureErrorCallback` executes with a `CaptureError`
 object, featuring the `CaptureError.CAPTURE_NO_MEDIA_FILES` error
 code.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- iOS
-- Windows Phone 7 and 8
-- Windows 8
-
 ### Example
 
     // capture callback
@@ -144,7 +88,7 @@ code.
 
 - iOS does not have a default audio recording application, so a simple user interface is provided.
 
-### Windows Phone 7 and 8 Quirks
+### Windows Quirks
 
 - Windows Phone 7 does not have a default audio recording application, so a simple user interface is provided.
 
@@ -165,22 +109,6 @@ code.
 
     navigator.device.capture.captureAudio(captureSuccess, captureError, options);
 
-### Amazon Fire OS Quirks
-
-- The `duration` parameter is not supported.  Recording lengths cannot be limited programmatically.
-
-### Android Quirks
-
-- The `duration` parameter is not supported.  Recording lengths can't be limited programmatically.
-
-### BlackBerry 10 Quirks
-
-- The `duration` parameter is not supported.  Recording lengths can't be limited programmatically.
-- The `limit` parameter is not supported, so only one recording can be created for each invocation.
-
-### iOS Quirks
-
-- The `limit` parameter is not supported, so only one recording can be created for each invocation.
 
 ## capture.captureImage
 
@@ -207,20 +135,6 @@ callback with an array of `MediaFile` objects describing each captured
 image file.  If the user terminates the operation before capturing an
 image, the `CaptureErrorCB` callback executes with a `CaptureError`
 object featuring a `CaptureError.CAPTURE_NO_MEDIA_FILES` error code.
-
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- iOS
-- Windows Phone 7 and 8
-- Windows 8
-
-### Windows Phone 7 Quirks
-
-Invoking the native camera application while your device is connected
-via Zune does not work, and the error callback executes.
 
 ### Example
 
@@ -258,9 +172,6 @@ via Zune does not work, and the error callback executes.
 
     navigator.device.capture.captureImage(captureSuccess, captureError, options);
 
-### iOS Quirks
-
-- The __limit__ parameter is not supported, and only one image is taken per invocation.
 
 ## capture.captureVideo
 
@@ -289,15 +200,6 @@ capturing a video clip, the `CaptureErrorCB` callback executes with a
 `CaptureError` object featuring a
 `CaptureError.CAPTURE_NO_MEDIA_FILES` error code.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- iOS
-- Windows Phone 7 and 8
-- Windows 8
-
 ### Example
 
     // capture callback
@@ -318,10 +220,6 @@ capturing a video clip, the `CaptureErrorCB` callback executes with a
     navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:2});
 
 
-### BlackBerry 10 Quirks
-
-- Cordova for BlackBerry 10 attempts to launch the __Video Recorder__ application, provided by RIM, to capture video recordings. The app receives a `CaptureError.CAPTURE_NOT_SUPPORTED` error code if the application is not installed on the device.
-
 
 ## CaptureVideoOptions
 
@@ -339,14 +237,6 @@ capturing a video clip, the `CaptureErrorCB` callback executes with a
     var options = { limit: 3 };
 
     navigator.device.capture.captureVideo(captureSuccess, captureError, options);
-
-### BlackBerry 10 Quirks
-
-- The __duration__ parameter is not supported, so the length of recordings can't be limited programmatically.
-
-### iOS Quirks
-
-- The __limit__ parameter is not supported.  Only one video is recorded per invocation.
 
 
 ## CaptureCB
@@ -478,35 +368,6 @@ information for the media file.  If successful, it invokes the
 the attempt fails, this function invokes the `MediaFileDataErrorCB`
 callback.
 
-### Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- iOS
-- Windows Phone 7 and 8
-- Windows 8
-
-### Amazon Fire OS Quirks
-
-The API to access media file format information is limited, so not all
-`MediaFileData` properties are supported.
-
-### BlackBerry 10 Quirks
-
-Does not provide an API for information about media files, so all
-`MediaFileData` objects return with default values.
-
-### Android Quirks
-
-The API to access media file format information is limited, so not all
-`MediaFileData` properties are supported.
-
-### iOS Quirks
-
-The API to access media file format information is limited, so not all
-`MediaFileData` properties are supported.
-
 ## MediaFile
 
 > Encapsulates properties of a media capture file.
@@ -542,61 +403,3 @@ The API to access media file format information is limited, so not all
 - __width__: The width of the image or video in pixels. The value is zero for audio clips. (Number)
 
 - __duration__: The length of the video or sound clip in seconds. The value is zero for images. (Number)
-
-### BlackBerry 10 Quirks
-
-No API provides format information for media files, so the
-`MediaFileData` object returned by `MediaFile.getFormatData` features
-the following default values:
-
-- __codecs__: Not supported, and returns `null`.
-
-- __bitrate__: Not supported, and returns zero.
-
-- __height__: Not supported, and returns zero.
-
-- __width__: Not supported, and returns zero.
-
-- __duration__: Not supported, and returns zero.
-
-### Amazon Fire OS Quirks
-
-Supports the following `MediaFileData` properties:
-
-- __codecs__: Not supported, and returns `null`.
-
-- __bitrate__: Not supported, and returns zero.
-
-- __height__: Supported: image and video files only.
-
-- __width__: Supported: image and video files only.
-
-- __duration__: Supported: audio and video files only
-
-### Android Quirks
-
-Supports the following `MediaFileData` properties:
-
-- __codecs__: Not supported, and returns `null`.
-
-- __bitrate__: Not supported, and returns zero.
-
-- __height__: Supported: image and video files only.
-
-- __width__: Supported: image and video files only.
-
-- __duration__: Supported: audio and video files only.
-
-### iOS Quirks
-
-Supports the following `MediaFileData` properties:
-
-- __codecs__: Not supported, and returns `null`.
-
-- __bitrate__: Supported on iOS4 devices for audio only. Returns zero for images and videos.
-
-- __height__: Supported: image and video files only.
-
-- __width__: Supported: image and video files only.
-
-- __duration__: Supported: audio and video files only.

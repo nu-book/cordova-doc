@@ -1,23 +1,4 @@
-<!---
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-
-# org.apache.cordova.file-transfer
+# File Transfer
 
 This plugin allows you to upload and download files.
 
@@ -29,26 +10,6 @@ Although in the global scope, they are not available until after the `deviceread
     function onDeviceReady() {
         console.log(FileTransfer);
     }
-
-## Installation
-
-    cordova plugin add org.apache.cordova.file-transfer
-
-## Supported Platforms
-
-- Amazon Fire OS
-- Android
-- BlackBerry 10
-- Browser
-- Firefox OS**
-- iOS
-- Windows Phone 7 and 8*
-- Windows 8
-- Windows
-
-\* _Do not support `onprogress` nor `abort()`_
-
-\** _Do not support `onprogress`_
 
 # FileTransfer
 
@@ -69,6 +30,10 @@ multi-part POST request, and to download files as well.
 
 
 ## upload
+
+__Syntax__:
+
+`upload(fileUrl, serverUrl, successCallback, errorCallback, options)`
 
 __Parameters__:
 
@@ -159,8 +124,7 @@ __Parameters__:
 
 ## FileUploadResult
 
-A `FileUploadResult` object is passed to the success callback of the
-`FileTransfer` object's `upload()` method.
+A `FileUploadResult` object is passed to the success callback of the `FileTransfer` object's `upload()` method.
 
 ### Properties
 
@@ -179,6 +143,10 @@ A `FileUploadResult` object is passed to the success callback of the
 
 
 ## download
+
+__Syntax__:
+
+download(source, target, successCallback, errorCallback, trustAllHosts, options)
 
 __Parameters__:
 
@@ -276,22 +244,3 @@ A `FileTransferError` object is passed to an error callback when an error occurs
 - 3 = `FileTransferError.CONNECTION_ERR`
 - 4 = `FileTransferError.ABORT_ERR`
 - 5 = `FileTransferError.NOT_MODIFIED_ERR`
-
-## Backwards Compatibility Notes
-
-Previous versions of this plugin would only accept device-absolute-file-paths as the source for uploads, or as the target for downloads. These paths would typically be of the form
-
-    /var/mobile/Applications/<application UUID>/Documents/path/to/file  (iOS)
-    /storage/emulated/0/path/to/file                                    (Android)
-
-For backwards compatibility, these paths are still accepted, and if your application has recorded paths like these in persistent storage, then they can continue to be used.
-
-These paths were previously exposed in the `fullPath` property of `FileEntry` and `DirectoryEntry` objects returned by the File plugin. New versions of the File plugin, however, no longer expose these paths to JavaScript.
-
-If you are upgrading to a new (1.0.0 or newer) version of File, and you have previously been using `entry.fullPath` as arguments to `download()` or `upload()`, then you will need to change your code to use filesystem URLs instead.
-
-`FileEntry.toURL()` and `DirectoryEntry.toURL()` return a filesystem URL of the form
-
-    cdvfile://localhost/persistent/path/to/file
-
-which can be used in place of the absolute file path in both `download()` and `upload()` methods.
