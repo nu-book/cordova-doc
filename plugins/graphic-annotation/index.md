@@ -13,11 +13,11 @@ Although the object is in the global scope, features provided by this plugin are
 
 ## Methods
 
-- navigator.handDrawTool.record
-- navigator.handDrawTool.edit
-- navigator.handDrawTool.show
-- navigator.handDrawTool.getSVG
-- navigator.handDrawTool.drawInContext
+* __navigator.handDrawTool.record__: Show widget to capture drawings.
+* __navigator.handDrawTool.edit__: Show widget to capture drawings with multi-page support.
+* __navigator.handDrawTool.show__: Show captured contents in read-only multi-page mode.
+* __navigator.handDrawTool.getSVG__: Convert graphics data to SVG.
+* __navigator.handDrawTool.drawInContext__: Draw graphics data into a canvas.
 
 ### navigator.handDrawTool.record
 Show the capture surface.
