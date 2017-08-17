@@ -7,6 +7,7 @@ Documentation for Cordova plugins used by COTG
 - [Barcode Scanner](plugins/barcode-scanner/index.md)
 - [Battery Status](plugins/battery-status/index.md)
 - [Camera](plugins/camera/index.md)
+- [Camera2](plugins/camera2/index.md)
 - [Contacts](plugins/contacts/index.md)
 - [COTG Host](plugins/cotg-host/index.md)
 - [Date Picker](plugins/date-picker/index.md)
