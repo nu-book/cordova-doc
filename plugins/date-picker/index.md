@@ -41,152 +41,15 @@ Default: `new Date()`
 ### minDate - iOS, Android, Windows
 Minimum date.
 
-Type: Date | empty String
+Type: Date | Number (unix timestamp)
 
-Default: `(empty String)`
+Default: `undefined`
 
-minDate is a Date object for iOS and a millisecond precision unix timestamp for Android, so you need to account for that when using the plugin. Also, on Android, only the date is enforced (time is not).
+On Android, only the date is enforced (time is not).
 
 ### maxDate - iOS, Android, Windows
 Maximum date.
 
-Type: Date | empty String
+Type: Date | Number (unix timestamp)
 
-Default: `(empty String)`
-
-### titleText - Android
-Label for the dialog title. If empty, uses android default (Set date/Set time).
-
-Type: String | empty String
-
-Default: `(empty String)`
-
-### okText - Android
-Label of BUTTON_POSITIVE (done button). If empty, uses android.R.string.ok.
-
-Type: String | empty String
-
-Default: `(empty String)`
-
-### cancelText - Android
-Label of BUTTON_NEGATIVE (cancel button). If empty, uses android.R.string.cancel.
-
-Type: String | empty String
-
-Default: `(empty String)`
-
-### todayText - Android
-Label of today button. If empty, doesn't show the option to select current date.
-
-Type: String | empty String
-
-Default: `(empty String)`
-
-### nowText - Android
-Label of now button. If empty, doesn't show the option to select current time.
-
-Type: String | empty String
-
-Default: `(empty String)`
-
-### is24Hour - Android
-Shows time dialog in 24 hours format.
-
-Type: Boolean
-
-Values: `true` | `false`
-
-Default: `false`
-
-### androidTheme - Android
-Choose the theme of the picker
-
-Type: Int
-
-Values: `THEME_TRADITIONAL | THEME_HOLO_DARK | THEME_HOLO_LIGHT | THEME_DEVICE_DEFAULT_DARK | THEME_DEVICE_DEFAULT_LIGHT`
-
-Default: `THEME_TRADITIONAL`
-
-### allowOldDates - iOS
-Shows or hide dates earlier then selected date.
-
-Type: Boolean
-
-Values: `true` | `false`
-
-Default: `true`
-
-### allowFutureDates - iOS
-Shows or hide dates after selected date.
-
-Type: Boolean
-
-Values: `true` | `false`
-
-Default: `true`
-
-### doneButtonLabel - iOS
-Label of done button.
-
-Typ: String
-
-Default: `Done`
-
-### doneButtonColor - iOS
-Hex color of done button.
-
-Typ: String
-
-Default: `#0000FF`
-
-### cancelButtonLabel - iOS
-Label of cancel button.
-
-Type: String
-
-Default: `Cancel`
-
-### cancelButtonColor - iOS
-Hex color of cancel button.
-
-Type: String
-
-Default: `#000000`
-
-### x - iOS (iPad only)
-X position of date picker. The position is absolute to the root view of the application.
-
-Type: String
-
-Default: `0`
-
-### y - iOS (iPad only)
-Y position of date picker. The position is absolute to the root view of the application.
-
-Type: String
-
-Default: `0`
-
-### minuteInterval - iOS
-Interval between options in the minute section of the date picker.
-
-Type: Integer
-
-Default: `1`
-
-### popoverArrowDirection - iOS
-Force the UIPopoverArrowDirection enum.
-The value `any` will revert to default `UIPopoverArrowDirectionAny` and let the app choose the proper direction itself.
-
-Values: `up` | `down` | `left` | `right` | `any`
-
-Type: String
-
-Default: `any`
-
-### locale - iOS
-Force locale for datePicker.
-
-Type: String
-
-Default: `en_us`
+Default: `undefined`
