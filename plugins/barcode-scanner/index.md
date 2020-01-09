@@ -22,7 +22,7 @@ This plugin creates the object "navigator.barcodeScanner" with single method `sc
     Note that on Android, this option will work only if the orginal app from ZXing Team, [Barcode Scanner](https://play.google.com/store/apps/details?id=com.google.zxing.client.android) is installed. Both [Barcode Scanner+ (Plus)](https://play.google.com/store/apps/details?id=com.srowen.bs.android) and [Barcode Scanner+ Simple](https://play.google.com/store/apps/details?id=com.srowen.bs.android.simple) will allow to scan barecodes but neither of them
     supports this option.
 
-    Note also that use front-facing camera to read barcodes may result in suboptimal experience as the front-facing camera is generally far less performant than the back-facing one. We have many reported cases where front-facing camera takes much long-time to auto-focus, especially in low light condition.
+    Note also that use front-facing camera to read barcodes may result in suboptimal experience as the front-facing camera is generally far less performant than the back-facing one. We have many reported cases where front-facing camera takes much longer time to focus, especially in low light condition.
     Focus is very important to scan quickly and correctly barcodes.
 
 #### Example
