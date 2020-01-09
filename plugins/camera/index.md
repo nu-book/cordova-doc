@@ -170,10 +170,6 @@ Optional parameters to customize the camera settings.
             FRONT: 1
         };
         
-    When this option is not provided, the plugin will default the back-facing camera for the first use, but will remember the last camera user changed to and will use the same.
-    By providing this option, this behavior is disabled and the requested camera will be used.
-        
-
 - __correctOrientation__: Rotate the image to correct for the orientation of the device during capture. _(Boolean)_
 
 - __popoverOptions__: iOS-only options that specify popover location in iPad.  Defined in `CameraPopoverOptions`.

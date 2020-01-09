@@ -44,6 +44,10 @@ Takes one or many photos using the camera.
             BACK: 0,
             FRONT: 1
         };
+        
+    When this option is not provided, the plugin will default the back-facing camera for the first use, but will remember the last camera user changed to and will use the same.
+    By providing this option, this behavior is disabled and the requested camera will be used.
+        
 
 - __fastCapture__ _(boolean)_: If `fast capture` mode is enabled. In fast capture mode, user does not need to confirm each photo taken. Default is `true`
 
