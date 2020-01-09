@@ -38,6 +38,13 @@ Takes one or many photos using the camera.
 
 - __limit__ _(integer)_: The maximum number of photos to be taken. Default is 0 which is no limit.
 
+- __cameraDirection__: (From version 10.8) Choose the camera to use (front- or back-facing). Defined in `Camera.Direction` _(Number)_
+
+        Camera.Direction = {
+            BACK: 0,
+            FRONT: 1
+        };
+
 - __fastCapture__ _(boolean)_: If `fast capture` mode is enabled. In fast capture mode, user does not need to confirm each photo taken. Default is `true`
 
 - __stampFormat__ _(string)_: Stamp the photo with given date format pattern. The following pattern letters are defined.

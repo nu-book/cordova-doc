@@ -58,9 +58,11 @@ than `DATA_URL`.
 
 ### Android Quirks
 
-Android uses intents to launch the camera activity on the device to capture
+- Android uses intents to launch the camera activity on the device to capture
 images, and on phones with low memory, the COTG app may be killed.  In this
 scenario, the image will be lost.
+
+- `cameraDirection` option may not work, depending which camera app is used.
 
 ### iOS Quirks
 
@@ -72,6 +74,9 @@ displays:
     setTimeout(function() {
         // do your thing here!
     }, 0);
+
+### Windows Quirks
+`cameraDirection` option is not supported
 
 ### Example
 
@@ -121,7 +126,7 @@ Optional parameters to customize the camera settings.
 
 - __quality__: Quality of the saved image, expressed as a range of 0-100, where 100 is typically full resolution with no loss from file compression. The default is 50. _(Number)_ (Note that information about the camera's resolution is unavailable.)
 
-- __destinationType__: Choose the format of the return value. The default is FILE_URI. Defined in `navigator.camera.DestinationType` _(Number)_
+- __destinationType__: Choose the format of the return value. The default is FILE_URI. Defined in `Camera.DestinationType` _(Number)_
 
         Camera.DestinationType = {
             DATA_URL : 0,      // Return image as base64-encoded string
@@ -129,7 +134,7 @@ Optional parameters to customize the camera settings.
             NATIVE_URI : 2     // Return image native URI (e.g., assets-library:// on iOS or content:// on Android)
         };
 
-- __sourceType__: Set the source of the picture. The default is CAMERA. Defined in `navigator.camera.PictureSourceType` _(Number)_
+- __sourceType__: Set the source of the picture. The default is CAMERA. Defined in `Camera.PictureSourceType` _(Number)_
 
         Camera.PictureSourceType = {
             PHOTOLIBRARY : 0,
@@ -139,7 +144,7 @@ Optional parameters to customize the camera settings.
 
 - __allowEdit__: Allow simple editing of image before selection. _(Boolean)_ Default is false. Ignored if __allowDeskew__ is true.
 
-- __encodingType__: Choose the  returned image file's encoding. Default is JPEG. Defined in `navigator.camera.EncodingType` _(Number)_
+- __encodingType__: Choose the  returned image file's encoding. Default is JPEG. Defined in `Camera.EncodingType` _(Number)_
 
         Camera.EncodingType = {
             JPEG : 0,               // Return JPEG encoded image
@@ -150,13 +155,24 @@ Optional parameters to customize the camera settings.
 
 - __targetHeight__: Height in pixels to scale image. Must be used with __targetWidth__. Aspect ratio remains constant. _(Number)_ Default is no limit.
 
-- __mediaType__: Set the type of media to select from.  Only works when `PictureSourceType` is `PHOTOLIBRARY` or `SAVEDPHOTOALBUM`. Defined in `nagivator.camera.MediaType` _(Number)_
+- __mediaType__: Set the type of media to select from.  Only works when `PictureSourceType` is `PHOTOLIBRARY` or `SAVEDPHOTOALBUM`. Defined in `Camera.MediaType` _(Number)_
 
         Camera.MediaType = {
             PICTURE: 0,    // allow selection of still pictures only. DEFAULT. Will return format specified via DestinationType
             VIDEO: 1,      // allow selection of video only, WILL ALWAYS RETURN FILE_URI
             ALLMEDIA : 2   // allow selection from all media types
         };
+        
+- __cameraDirection__: (From version 10.8) Choose the camera to use (front- or back-facing). Defined in `Camera.Direction` _(Number)_
+
+        Camera.Direction = {
+            BACK: 0,
+            FRONT: 1
+        };
+        
+    When this option is not provided, the plugin will default the back-facing camera for the first use, but will remember the last camera user changed to and will use the same.
+    By providing this option, this behavior is disabled and the requested camera will be used.
+        
 
 - __correctOrientation__: Rotate the image to correct for the orientation of the device during capture. _(Boolean)_
 

@@ -2,13 +2,28 @@
 
 This plugin provides interface to start a barcode scanning using device's buit-in camera.
 
-This plugin creates the object "navigator.barcodeScanner" with single method `scan(success, fail)`, where:
+This plugin creates the object "navigator.barcodeScanner" with single method `scan(success, fail, options)`, where:
 
 * `success` is a callback which will be called when the scan succeed or cancelled by user. This callback will receive one argument, which is an object with the following properties:
   *	`data` (string) is the text representation of the barcode data;
   *	`type` (string) is the type of barcode detected; 
   * `cancelled` (boolean) whether or not the user cancelled the scan.
 * `fail` is a callback which will be called if there is error occurs. This callback will receive the error message as string.
+
+### Options
+
+- __cameraDirection__: (From version 10.8) Choose the camera to use (front- or back-facing). Defined in `Camera.Direction` _(Number)_
+
+        Camera.Direction = {
+            BACK: 0,
+            FRONT: 1
+        };
+        
+    Note that on Android, this option will work only if the orginal app from ZXing Team, [Barcode Scanner](https://play.google.com/store/apps/details?id=com.google.zxing.client.android) is installed. Both [Barcode Scanner+ (Plus)](https://play.google.com/store/apps/details?id=com.srowen.bs.android) and [Barcode Scanner+ Simple](https://play.google.com/store/apps/details?id=com.srowen.bs.android.simple) will allow to scan barecodes but neither of them
+    supports this option.
+
+    Note also that use front-facing camera to read barcodes may result in suboptimal experience as the front-facing camera is generally far less performant than the back-facing one. We have many reported cases where front-facing camera takes much long-time to auto-focus, especially in low light condition.
+    Focus is very important to scan quickly and correctly barcodes.
 
 #### Example
     navigator.barcodeScanner.scan(
