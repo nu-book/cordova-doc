@@ -12,18 +12,17 @@ This plugin creates the object "navigator.barcodeScanner" with single method `sc
 
 ### Options
 
-- __cameraDirection__: (From version 10.8) Choose the camera to use (front- or back-facing). Defined in `Camera.Direction` _(Number)_
+- __cameraDirection__: (From version 2020.xx) Choose the camera to use (front- or back-facing). Defined in `Camera.Direction` _(Number)_
 
         Camera.Direction = {
             BACK: 0,
             FRONT: 1
         };
         
-    Note that on Android, this option will work only if the orginal app from ZXing Team, [Barcode Scanner](https://play.google.com/store/apps/details?id=com.google.zxing.client.android) is installed. Both [Barcode Scanner+ (Plus)](https://play.google.com/store/apps/details?id=com.srowen.bs.android) and [Barcode Scanner+ Simple](https://play.google.com/store/apps/details?id=com.srowen.bs.android.simple) will allow to scan barecodes but neither of them
-    supports this option.
-
-    Note also that use front-facing camera to read barcodes may result in suboptimal experience as the front-facing camera is generally far less performant than the back-facing one. We have many reported cases where front-facing camera takes much longer time to focus, especially in low light condition.
+    Note that use front-facing camera to read barcodes may result in suboptimal experience as the front-facing camera is generally far less performant than the back-facing one. We have many reported cases where front-facing camera takes much longer time to focus, especially in low light condition.
     Focus is very important to scan quickly and correctly barcodes.
+
+    Note also that on Android, from version 2020.xx barcode code capture is handled by COTG itself, thus no external app is required.
 
 #### Example
     navigator.barcodeScanner.scan(
