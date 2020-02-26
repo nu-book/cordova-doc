@@ -23,6 +23,7 @@ Documentation for Cordova plugins used by COTG
 - [Media](plugins/media/index.md)
 - [Media Capture](plugins/media-capture/index.md)
 - [Network Information](plugins/network-information/index.md)
+- [NFC](plugins/nfc/index.md)
 - [Vibration](plugins/vibration/index.md)
 
 ## License
