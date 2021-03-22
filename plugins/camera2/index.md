@@ -30,15 +30,30 @@ Takes one or many photos using the camera.
 
 #### Options
 
+- __sourceType__ _(from version 2021.X)_: Set the source of the pictures. The default is CAMERA. Defined in `Camera.PictureSourceType` _(Number)_
+
+        Camera.PictureSourceType = {
+            PHOTOLIBRARY : 0,
+            CAMERA : 1,
+            SAVEDPHOTOALBUM : 2, // Not supported, same as PHOTOLIBRARY
+        };
+
 - __targetWidth__ _(integer)_: If provided, this defines the maximal width in pixels. If the resulting image is larger than this size, it will be scaled down to satisfy `targetWidth` and `targetHeight` requirements but by preserving image ratio aspect. If `0` (default) or negative value is provided, it's interpreted as _no limit_.
 
 - __targetHeight__ _(integer)_: If provided, this defines the maximal height in pixels. If the resulting image is taller than this size, it will be scaled down to satisfy `targetWidth` and `targetHeight` requirements but by preserving image ratio aspect. If `0` (default) or negative value is provided, it's interpreted as _no limit_.
+
+- __encodingType__ _(from version 2021.X)_: Choose the  returned image file's encoding. Default is JPEG. Defined in `Camera.EncodingType` _(Number)_
+
+        Camera.EncodingType = {
+            JPEG : 0,               // Return JPEG encoded image
+            PNG : 1                 // Return PNG encoded image
+        };
 
 - __quality__ _(integer)_: Quality of the saved image, expressed as a range of 0-100, where 100 is typically full resolution with no loss from file compression. The default is `50`.
 
 - __limit__ _(integer)_: The maximum number of photos to be taken. Default is 0 which is no limit.
 
-- __cameraDirection__: (From version 10.8) Choose the camera to use (front- or back-facing). Defined in `Camera.Direction` _(Number)_
+- __cameraDirection__ _(from version 10.8)_: Choose the camera to use (front- or back-facing). Defined in `Camera.Direction` _(Number)_
 
         Camera.Direction = {
             BACK: 0,
@@ -48,8 +63,19 @@ Takes one or many photos using the camera.
     When this option is not provided, the plugin will default the back-facing camera for the first use, but will remember the last camera user changed to and will use the same.
     By providing this option, this behavior is disabled and the requested camera will be used.
         
+- __allowEdit__ _(from version 2021.X)_: Allow simple editing of image before selection. _(Boolean)_ Default is false. Ignored if __allowDeskew__ is true.
 
-- __fastCapture__ _(boolean)_: If `fast capture` mode is enabled. In fast capture mode, user does not need to confirm each photo taken. Default is `true`
+- __allowDeskew__ _(from version 2021.X)_: Displays an UI assisting user to perform a perspective cropping and image processing after taking picture. _(Boolean)_ Default is false.
+
+- __colorspace__ _(from version 2021.X)_: In the image processing step, user is presented by default with 3 modes that she can choose, Black White, Grayscale, and Color. In order to simplify the UI, this option can be specified so that only one mode is available, the value is an enum defined as following:
+
+        Camera.Colorspace = {
+            BW: 0,        // Result image will be in black & white
+            GRAYSCALE: 1, // Result image will be in 256 grayscale levels
+            COLOR : 2     // Result image will be in RGB
+        };
+
+- __fastCapture__ _(boolean)_: If `fast capture` mode is enabled. In fast capture mode, user does not need to confirm each photo taken. Default is `true`. Ignored if either __allowEdit__ or __allowDeskew__ is true.
 
 - __stampFormat__ _(string)_: Stamp the photo with given date format pattern. The following pattern letters are defined.
 
